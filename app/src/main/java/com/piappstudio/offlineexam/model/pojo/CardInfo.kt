@@ -1,10 +1,16 @@
 package com.piappstudio.offlineexam.model.pojo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class CardInfo(
     @SerializedName("card_type") val card_type:String,
-    @SerializedName("card") val card:Card)
+    @SerializedName("card") val card:Card):Parcelable {
+    val cardType get() = CardType.from(card_type)
+}
+
 
  enum class CardType(val type:String) {
      NONE(""),
