@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.piappstudio.offlineexam.R
+import com.piappstudio.offlineexam.common.CacheManager
 import com.piappstudio.offlineexam.common.Resource
 import com.piappstudio.offlineexam.databinding.ActivityMainBinding
+import com.piappstudio.offlineexam.model.pojo.DynamicUI
 import com.piappstudio.offlineexam.model.pojo.Page
 import com.piappstudio.offlineexam.ui.list.ListFragment
 import kotlinx.coroutines.Dispatchers
@@ -14,19 +17,20 @@ import kotlinx.coroutines.launch
 
 class MainActivity : PIBaseActivity() {
 
-    lateinit var binding:ActivityMainBinding
-    val viewModel:MainViewModel by lazy { MainViewModel() }
+    private lateinit var binding:ActivityMainBinding
+    private val viewModel:MainViewModel by lazy { MainViewModel() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(findViewById(R.id.toolbar))
         initUI()
-
     }
 
 
+    // To initialize the UI elements
     private fun initUI() {
+        // To check the internet availability
         if(isInternetAvailable(this)) {
             viewModel.loadFromInternet().observe(this, {
                 when (it.status) {
@@ -37,7 +41,8 @@ class MainActivity : PIBaseActivity() {
                         dismissProgressDialog("Loading")
                         lifecycleScope.launch(Dispatchers.IO) {
                             // Store the response in cache folder
-
+                            val json = Gson().toJson(it?.data)
+                            CacheManager().saveJson(baseContext, json)
                         }
                         loadFragment(it.data?.page)
                     }
@@ -46,9 +51,20 @@ class MainActivity : PIBaseActivity() {
                     }
                 }
             })
+        } else {
+            // To load the json from cache
+            lifecycleScope.launch(Dispatchers.IO) {
+                val json = CacheManager().retrieveJson(baseContext)
+                lifecycleScope.launch(Dispatchers.Main) {
+                    val data = Gson().fromJson(json, DynamicUI::class.java)
+                    loadFragment(data?.page)
+                }
+            }
+
         }
     }
 
+    // To load the fragment based on response
     private fun loadFragment(page:Page?) {
         page?.let {
             val fragment = ListFragment.newInstance(page)

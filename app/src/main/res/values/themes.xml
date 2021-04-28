@@ -18,6 +18,14 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="CardViewBG">
+        <item name="background">@color/white</item>
+        <item name="contentPadding">@dimen/m_5</item>
+        <item name="cardElevation">@dimen/m_5</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
 
     <style name="Theme.OfflineExam.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

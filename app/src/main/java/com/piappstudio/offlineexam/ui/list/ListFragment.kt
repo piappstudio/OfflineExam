@@ -46,7 +46,7 @@ class ListFragment : Fragment() {
     }
 
     private fun initUI() {
-        adapter = HomeListAdapter(page?.cards?: emptyList(), requireContext())
+        adapter = HomeListAdapter(page?.cards?: emptyList())
         binding.rvList.adapter = adapter
         binding.rvList.layoutManager = LinearLayoutManager(context)
         viewModel.livePageInfo.observe(viewLifecycleOwner, {

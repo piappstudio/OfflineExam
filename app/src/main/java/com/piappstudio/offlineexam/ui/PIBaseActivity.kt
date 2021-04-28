@@ -16,7 +16,6 @@ package com.piappstudio.offlineexam.ui
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
@@ -24,11 +23,11 @@ import com.piappstudio.pilibrary.ui.ProgressFragment
 
 open class PIBaseActivity :AppCompatActivity() {
 
-    val TAG = PIBaseActivity::class.java.name
+    private val TAG = PIBaseActivity::class.java.name
     private var mLoaderFragment: ProgressFragment? = null
 
     fun isInternetAvailable(context: Context): Boolean {
-        var result = false
+        val result: Boolean
         val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkCapabilities = connectivityManager.activeNetwork ?: return false
@@ -63,7 +62,7 @@ open class PIBaseActivity :AppCompatActivity() {
 
     fun dismissProgressDialog(tag: String) {
         mLoaderFragment?.let {
-            Log.d(TAG, "Dismiss progress bar")
+            Log.d(TAG, "Dismiss progress bar$tag")
             it.dismissAllowingStateLoss()
         }
     }
