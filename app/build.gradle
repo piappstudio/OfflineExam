@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 
 }
 
@@ -67,6 +68,12 @@ dependencies {
 
     // Paging 3
     implementation "androidx.paging:paging-runtime-ktx:$pagingVersion"
+
+    // For Hilt Android
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation project(path: ':corelibrary')
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+
 
     // RoomDatabase
     def room_version = "2.3.0-rc01"

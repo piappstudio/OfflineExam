@@ -2,7 +2,7 @@ package com.piappstudio.offlineexam.common
 
 import android.graphics.Color
 import android.widget.TextView
-import com.piappstudio.offlineexam.model.pojo.Attribute
+import com.piappstudio.corelibrary.model.api.pojo.Attribute
 
 /**
  * To set the text view attribute based on Attribute value
