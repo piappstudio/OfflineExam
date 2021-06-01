@@ -1,7 +1,6 @@
-package com.piappstudio.offlineexam.model.api
+package com.piappstudio.corelibrary.model.api
 
-import com.piappstudio.offlineexam.model.pojo.DynamicUI
-import retrofit2.Call
+import com.piappstudio.corelibrary.model.api.pojo.DynamicUI
 import retrofit2.Response
 import retrofit2.http.GET
 

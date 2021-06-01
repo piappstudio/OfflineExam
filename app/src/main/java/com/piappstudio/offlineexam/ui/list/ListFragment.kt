@@ -6,20 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.piappstudio.corelibrary.model.api.pojo.Page
+import com.piappstudio.offlineexam.common.TileManager
 import com.piappstudio.offlineexam.databinding.FragmentListBinding
-import com.piappstudio.offlineexam.model.pojo.CardInfo
-import com.piappstudio.offlineexam.model.pojo.Page
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 private const val ARG_PAGE_INFO = "ARG_PAGE_INFO"
+
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
+   @Inject lateinit var tileManager: TileManager
     private var _binding:FragmentListBinding? = null
     private val binding get() = _binding!!
     lateinit var adapter:HomeListAdapter
-    var page:Page? = null
+    var page: Page? = null
     private val viewModel:ListViewModel by lazy {
         ListViewModel()
     }
@@ -46,7 +51,7 @@ class ListFragment : Fragment() {
     }
 
     private fun initUI() {
-        adapter = HomeListAdapter(page?.cards?: emptyList())
+        adapter = HomeListAdapter(page?.cards?: emptyList(), tileManager)
         binding.rvList.adapter = adapter
         binding.rvList.layoutManager = LinearLayoutManager(context)
         viewModel.livePageInfo.observe(viewLifecycleOwner, {

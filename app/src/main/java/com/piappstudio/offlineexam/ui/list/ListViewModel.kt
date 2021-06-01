@@ -3,7 +3,7 @@ package com.piappstudio.offlineexam.ui.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.piappstudio.offlineexam.model.pojo.Page
+import com.piappstudio.corelibrary.model.api.pojo.Page
 
 class ListViewModel:ViewModel() {
     private var _pageInfo:MutableLiveData<Page> = MutableLiveData()

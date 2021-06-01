@@ -1,7 +1,7 @@
 package com.piappstudio.offlineexam.model.di
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.piappstudio.offlineexam.model.api.IExamApi
+import com.piappstudio.corelibrary.model.api.IExamApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
 import org.junit.Test

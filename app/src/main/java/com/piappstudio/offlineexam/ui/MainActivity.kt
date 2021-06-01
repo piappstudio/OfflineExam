@@ -3,22 +3,26 @@ package com.piappstudio.offlineexam.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.gson.Gson
+import com.piappstudio.corelibrary.model.api.pojo.DynamicUI
+import com.piappstudio.corelibrary.model.api.pojo.Page
 import com.piappstudio.offlineexam.R
 import com.piappstudio.offlineexam.common.CacheManager
 import com.piappstudio.offlineexam.common.Resource
 import com.piappstudio.offlineexam.databinding.ActivityMainBinding
-import com.piappstudio.offlineexam.model.pojo.DynamicUI
-import com.piappstudio.offlineexam.model.pojo.Page
 import com.piappstudio.offlineexam.ui.list.ListFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : PIBaseActivity() {
 
     private lateinit var binding:ActivityMainBinding
-    private val viewModel:MainViewModel by lazy { MainViewModel() }
+    private val viewModel:MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -65,7 +69,7 @@ class MainActivity : PIBaseActivity() {
     }
 
     // To load the fragment based on response
-    private fun loadFragment(page:Page?) {
+    private fun loadFragment(page: Page?) {
         page?.let {
             val fragment = ListFragment.newInstance(page)
             val transaction = supportFragmentManager.beginTransaction()
